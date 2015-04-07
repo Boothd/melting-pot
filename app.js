@@ -25,34 +25,34 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Include static content.
-fs.readFile('sidebar.html', function(err, data) {
-	if (err) {
-		throw err;
-	}
-	index = data;
-});
-
-//locals for all views in the application
-//app.locals(settings.template_defaults);
-
-//middleware for common locals with request-specific values
-app.use(function (req, res, next) {
-    res.locals({
-    	index:index
-        // e.g. session: req.session
-    });
-    next();
-});
-
+////Include static content.
+//fs.readFile('sidebar.html', function(err, data) {
+//	if (err) {
+//		throw err;
+//	}
+//	index = data;
+//});
+//
+////locals for all views in the application
+////app.locals(settings.template_defaults);
+//
+////middleware for common locals with request-specific values
+//app.use(function (req, res, next) {
+//    res.locals({
+//    	index:index
+//        // e.g. session: req.session
+//    });
+//    next();
+//});
+//
 var session = function(request, response, next) {
-	response.locals({
-    	index:index
-        // e.g. session: req.session
-    });
-	//response.render('#', {index:index});
-	
-	console.log(index);
+//	response.locals({
+//    	index:index
+//        // e.g. session: req.session
+//    });
+//	//response.render('#', {index:index});
+//	
+//	console.log(index);
 	
 	next();
 };

@@ -11,13 +11,29 @@
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		<link href="css/styles.css" rel="stylesheet">
+		<!--  
+		
+		-->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+		
+	    <script> 
+	    $(function(){
+	      $("#sidebar").load("static/sidebar.html"); 
+	    });
+	    </script> 
+
 	</head>
 	<body>
 <div class="wrapper">
+
+
     <div class="box">
         <div class="row">
 
-<object name="sidebar" type="text/html" data="sidebar.html"></object>
+			
+<div class="column col-sm-3" id="sidebar"></div>
+			<!-- <object name="sidebar" type="text/html" data="static/sidebar.html"></object> -->
 
           
             <!-- main -->

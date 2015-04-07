@@ -1,12 +1,20 @@
 
 
-# html5-demos
+# Melting Pot
 
-
+Simple project created to experiment with Node, Bootstrap and ejs.
 
 ## Usage
 
+You will need node.js installed onto your machine to run this.
+I have setup npm to install the dependencies required for this project.
+Run the following command to pull in the dependencies:
 
+	npm install
+	
+Run the following command to start the app.
+
+	node app.js
 
 ## Developing
 
