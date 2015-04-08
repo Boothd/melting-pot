@@ -72,6 +72,7 @@ app.get('/users', session, user.list);
 
 app.get('/blog', session, function(request, response) {
 
+	if (typeof Post !== "undefined") {
     Post.find(function(err, posts) {
         if (err) {
             response.send(500, 'There was an error - tough luck.');
@@ -82,6 +83,10 @@ app.get('/blog', session, function(request, response) {
             });
         }
     });
+}
+	else{
+		console.log("Post is undefined.")
+	}
 });
 
 http.createServer(app).listen(app.get('port'), function(){
