@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="generator" content="Bootply" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<!--[if lt IE 9]>
+	<title>Basis Template for Bootstrap 3</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="generator" content="Bootply" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-<link href="css/styles.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	<!-- Pull in the static content -->
+	<script>
+		$(function() {
+			$("#sidebar").load("static/sidebar.html");
+		});
+	</script>
 </head>
 
 <body>
@@ -18,48 +27,56 @@
 		<div class="box">
 			<div class="row">
 				<!-- sidebar -->
-				<div class="column col-sm-3" id="sidebar">
-					<a class="logo" href="#">Dan Booth</a>
-					<ul class="nav">
-						<li class="active"><a href="#featured">Featured</a></li>
-						<li><a href="#stories">Stories</a></li>
-					</ul>
-					<ul class="nav hidden-xs" id="sidebar-footer">
-						<li><a href="http://www.bootply.com"><h3>Basis</h3>Made
-								with <i class="img/glyphicon glyphicon-heart-empty"></i> by
-								Bootply</a></li>
-					</ul>
-				</div>
+				<div class="column col-sm-3" id="sidebar"></div>
+
+
 				<!-- /sidebar -->
 
 				<!-- main -->
 				<div class="column col-sm-9" id="main">
 					<div class="padding">
 						<div class="full col-sm-9">
-						
-						<!-- content -->
-                        <div class="col-sm-12" id="featured">   
-                          <div class="page-header text-muted">
-                          	<a class="brand" href="/blog">Simple Blog</a>
-                          	<a class="active"><a href="/">All Posts</a>
-							<a href="/new">Create Post</a>
-                          </div> 
-                        </div>
 
-							<div class="container" style="margin-top: 10px;">
-								<div class="row">
-									<div class="span12">
-										<%
-										if(posts != null){ 
-										posts.forEach(function(post) { %>
-										<div>
-											<h1><%= post.title %></h1>
-											<p><%= post.content %></p>
-										</div>
-										<% })} %>
-									</div>
+							<!-- content -->
+							<div class="col-sm-12" id="featured">
+								<div class="page-header text-muted">
+									<a class="brand" href="/blog">Simple Blog</a>
 								</div>
 							</div>
+							
+							<div class="col-sm-12">
+								<h4><a href="/blog">All Posts</a></h4>
+								<h4><a href="/new">Create Post</a></h4>
+							</div>
+
+							<% if(posts !=null)
+								{ posts.forEach(function(post) { %>
+								<!--/stories-->
+								<div class="row">
+									<div class="col-sm-10">
+										<h3><%= post.title %></h3>
+										<p>
+											<%= post.content %>
+										</p>
+										<h4><span class="label label-default">codeanywhere.com</span></h4>
+										<h4>
+                            <small class="text-muted">1 hour ago • <a href="#" class="text-muted">Read More</a></small>
+                            </h4>
+									</div>
+									<div class="col-sm-2">
+										<a href="#" class="pull-right">
+											<img src="http://api.randomuser.me/portraits/thumb/men/86.jpg" class="img-circle">
+										</a>
+									</div>
+								</div>
+
+								<div class="row divider">
+									<div class="col-sm-12">
+										<hr>
+									</div>
+								</div>
+
+								<% })} %>
 
 						</div>
 					</div>
@@ -69,4 +86,5 @@
 		</div>
 	</div>
 </body>
+
 </html>

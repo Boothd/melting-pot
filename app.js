@@ -3,14 +3,13 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path'),
-  Post = require('./Post'),
-  fs = require('fs'),
-  index;
+var express = require('express'),
+	routes = require('./routes'),
+	user = require('./routes/user'),
+	http = require('http'),
+	path = require('path'),
+  	Post = require('./Post'),
+  	fs = require('fs');
 
 var app = express();
 
@@ -25,35 +24,8 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-////Include static content.
-//fs.readFile('sidebar.html', function(err, data) {
-//	if (err) {
-//		throw err;
-//	}
-//	index = data;
-//});
-//
-////locals for all views in the application
-////app.locals(settings.template_defaults);
-//
-////middleware for common locals with request-specific values
-//app.use(function (req, res, next) {
-//    res.locals({
-//    	index:index
-//        // e.g. session: req.session
-//    });
-//    next();
-//});
-//
 var session = function(request, response, next) {
-//	response.locals({
-//    	index:index
-//        // e.g. session: req.session
-//    });
-//	//response.render('#', {index:index});
-//	
-//	console.log(index);
-	
+	//useful place for adding stuff to the session.
 	next();
 };
 
@@ -66,10 +38,32 @@ if ('development' === app.get('env')) {
 
 app.get('/', session, routes.index);
 app.get('/users', session, user.list);
-//app.get('/blog', function(request, response) {
-//    response.render('simple-blog', {});
-//});
 
+// Render a form to enter a new post
+app.get('/new', function(request, response) {
+    response.render('new', {});
+});
+
+// create a new blog post object
+app.post('/create', function(request, response) {
+    // TODO: Create and save a Post model
+    var post = new Post({
+        title: request.body.title,
+        content: request.body.content
+    });
+
+    // TODO: Save the model
+    post.save(function(err, model) {
+        if (err) {
+            response.send(500, 'There was an error - tough luck.');
+        }
+        else {
+            response.redirect('/');
+        }
+    });
+});
+
+//Render the blog page.
 app.get('/blog', session, function(request, response) {
 
 	if (typeof Post !== "undefined") {
@@ -85,7 +79,7 @@ app.get('/blog', session, function(request, response) {
     });
 }
 	else{
-		console.log("Post is undefined.")
+		console.error("Post is undefined? Sounds like a bug to me.");
 	}
 });
 
