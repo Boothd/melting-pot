@@ -13,16 +13,20 @@ var express = require('express'),
 
 var app = express();
 
-// all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+app.configure(function() {
+	// all environments
+	app.set('port', process.env.PORT || 3000);
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'ejs');
+	app.use(express.favicon());
+	app.use(express.logger('dev'));
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(app.router);
+	app.use(express.static(path.join(__dirname, 'public')));
+});
+
+
 
 var session = function(request, response, next) {
 	//useful place for adding stuff to the session.
@@ -32,9 +36,13 @@ var session = function(request, response, next) {
 
 
 // development only
-if ('development' === app.get('env')) {
-  app.use(express.errorHandler());
-}
+app.configure('development', function(){
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+});
+//production env
+app.configure('production', function(){
+  app.use(express.errorHandler()); 
+});
 
 app.get('/', session, routes.index);
 app.get('/users', session, user.list);
