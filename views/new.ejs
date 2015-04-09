@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Melting Pot</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="generator" content="Bootply" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	<link href="css/styles.css" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	<!-- Pull in the static content -->
+	<script>
+		$(function() {
+			$("#sidebar").load("static/sidebar.html");
+		});
+	</script>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="box">
+			<div class="row">
+				<!-- sidebar -->
+				<div class="column col-sm-3" id="sidebar"></div>
+				<!-- /sidebar -->
+
+				<div class="row">
+					<div class="span12">
+
+					</div>
+
+					<!-- main -->
+					<div class="column col-sm-9" id="main">
+						<div class="padding">
+							<div class="full col-sm-9">
+
+								<!-- content -->
+								<div class="col-sm-12" id="featured">
+									<div class="page-header text-muted">
+										<a class="brand" href="/blog">New Post</a>
+									</div>
+								</div>
+
+
+
+
+								<div class="row">
+									<div class="col-sm-10">
+										<form action="/create" method="POST">
+											<div class="col-sm-12">
+												<label>Post Title</label>
+												<div class="col-sm-12">
+													<input type="text" name="title" placeholder="Type a title..." />
+												</div>
+												
+												<br/>
+												<label>Post Content</label>
+												<div class="col-sm-12">
+												<textarea name="content" rows="5" placeholder="Type your blog..."></textarea>
+												</div>
+												<p>
+													<button type="submit" class="btn">Submit</button>
+												</p>
+											</div>
+
+										</form>
+
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
