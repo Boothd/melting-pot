@@ -8,10 +8,13 @@ var express = require('express'),
 	user = require('./routes/user'),
 	http = require('http'),
 	path = require('path'),
-  	Post = require('./Post'),
+  	Blog = require('./node/Blog'),
+	dataSource = require('./DataSourceDev'),
   	fs = require('fs');
 
 var app = express();
+var mongoose = dataSource.getConnection();
+var Post = Blog.getPost(mongoose);
 
 app.configure(function() {
 	// all environments
@@ -54,7 +57,7 @@ app.get('/new', function(request, response) {
 
 // create a new blog post object
 app.post('/create', function(request, response) {
-    // TODO: Create and save a Post model
+	
     var post = new Post({
         title: request.body.title,
         content: request.body.content
