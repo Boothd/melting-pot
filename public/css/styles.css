@@ -137,3 +137,22 @@ h1,h2,h3 {
 small.text-muted {
   font-family:courier,courier-new,monospace;
 }
+
+.marquee {
+  width: 300px;
+  height: 100px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background: #ccc;
+}
+
+.ver {
+  height: 300px;
+  width: 200px;
+}
+
+.divScroll {
+    overflow-y:scroll;
+    height:400px;
+    width:700px;
+}

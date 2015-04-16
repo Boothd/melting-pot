@@ -9,8 +9,9 @@ var express = require('express'),
 	http = require('http'),
 	path = require('path'),
   	Blog = require('./node/Blog'),
-	dataSource = require('./DataSourceDev'),
-  	fs = require('fs');
+	dataSource = require('./node/DataSourceDev'),
+  	fs = require('fs'),
+	TweetStreamer = require('./node/TweetStreamer');
 
 var app = express();
 var mongoose = dataSource.getConnection();
@@ -28,6 +29,12 @@ app.configure(function() {
 	app.use(app.router);
 	app.use(express.static(path.join(__dirname, 'public')));
 });
+
+var server = http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
+
+var tweetStream = TweetStreamer.streamTweets(server);
 
 
 
@@ -53,6 +60,11 @@ app.get('/users', session, user.list);
 // Render a form to enter a new post
 app.get('/new', function(request, response) {
     response.render('new', {});
+});
+
+//render a twitter feed 
+app.get('/tweet-stream', function(request, response) {
+    response.render('tweet-stream', {});
 });
 
 // create a new blog post object
@@ -92,8 +104,4 @@ app.get('/blog', session, function(request, response) {
 	else{
 		console.error("Post is undefined? Sounds like a bug to me.");
 	}
-});
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
 });

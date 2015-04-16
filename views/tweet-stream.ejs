@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Melting Pot</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="generator" content="Bootply" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	<link href="css/styles.css" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+	
+
+	<!-- Pull in the static content -->
+	<script>
+		$(function() {
+			$("#sidebar").load("static/sidebar.html");
+		});
+	</script>
+	
+	<script>
+
+        var socket = io.connect();
+		
+		var init = function(){
+			socket.emit('tweets', {});
+		};
+		
+		//Get More Tweets
+		window.setInterval(function(){
+			socket.emit('tweets', {});
+		}, 30000);
+		
+		socket.on('tweets', function (data) {
+			
+			(function myLoop (data, i) {          
+				setTimeout(function () { 
+					var status = data.statuses[i];
+				
+					//var theDiv = document.getElementById("divScroll");				
+					var theDiv = $(".divScroll")
+					.prepend("<p><img src="+status.user.profile_image_url+"> <b>"+status.user.name+"</b> "+status.text+"</p></br>");
+
+					//  decrement i and call myLoop again if i > 0
+					if (--i) myLoop(data, i); 
+				}, 2000)
+			})(data, data.statuses.length-1);
+        });
+	</script>
+</head>
+
+<body onload="init()">
+	<div class="wrapper">
+		<div class="box">
+			<div class="row">
+				<!-- sidebar -->
+				<div class="column col-sm-3" id="sidebar"></div>
+				<!-- /sidebar -->
+
+				<!-- main -->
+				<div class="column col-sm-9" id="main">
+					<div class="padding">
+						<div class="full col-sm-9">
+							<!-- content -->
+							<div class="col-sm-12" id="featured">
+								<div class="page-header text-muted">
+									<a class="brand" href="/blog">Simple Real Time Twitter Feed.</a>
+								</div>
+							</div>
+
+							<!--/stories-->
+							<div class="row">
+								<div class="col-sm-10">
+									<div class="divScroll">
+								</div>
+							</div>
+
+							<div class="row divider">
+								<div class="col-sm-12">
+									<hr>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
